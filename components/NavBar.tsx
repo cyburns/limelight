@@ -22,7 +22,7 @@ const NavBar = () => {
         ))}
 
         <li>
-          <Link href={"/"}>
+          <Link href={"/components"}>
             <span className="px-[12px] text-lg font-medium text-shadow bg-light-gray py-[0.55rem] rounded-xl hover:text-white transition duration-300">
               Docs
             </span>

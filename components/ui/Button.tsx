@@ -1,25 +1,40 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 interface ButtonProps {
-  children: string;
+  children: ReactNode;
   variant?: "primary" | "secondary" | "destructive";
 }
 
 const Button = ({ children, variant = "primary" }: ButtonProps) => {
-  const baseStyles = "px-7 py-2 rounded-xl border transition duration-200";
-  const variantStyles = {
-    primary: "text-black bg-white hover:bg-gray-100 transition duration-200",
-    secondary: "border-gray-600 text-gray-600 bg-transparent hover:bg-gray-100",
-    destructive: "text-red-600 bg-transparent hover:bg-red-100 border-none",
-  };
+  const baseStyles = "px-7 py-2 rounded-xl transition duration-300 text-xl";
 
-  const buttonStyles = `${baseStyles} ${variantStyles[variant]}`;
+  if (variant === "primary") {
+    return (
+      <button
+        className={`${baseStyles} text-black bg-primary-white hover:bg-white`}
+      >
+        {children}
+      </button>
+    );
+  }
 
-  return (
-    <button className={buttonStyles}>
-      <span className="text-xl">{children}</span>
-    </button>
-  );
+  if (variant === "secondary") {
+    return (
+      <button
+        className={`${baseStyles} text-medium-white bg-transparent hover:bg-light-gray`}
+      >
+        {children}
+      </button>
+    );
+  }
+
+  if (variant === "destructive") {
+    return (
+      <button className={`${baseStyles} text-red-500 bg-transparent hover:bg-red-100 border-none`}>
+        {children}
+      </button>
+    );
+  }
 };
 
 export default Button;
