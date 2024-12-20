@@ -1,7 +1,8 @@
 import React from "react";
-import Button from "./ui/Button";
+// import Button from "./ui/Button";
 import { IconChevronRight } from "@tabler/icons-react";
 import SpotLight from "./ui/SpotLight";
+import Button from "@/limelight/components/Button";
 
 const Hero = () => {
   return (
@@ -18,7 +19,7 @@ const Hero = () => {
         </h2>
       </div>
       <div className="mt-10 ">
-        <Button variant="primary">Start building</Button>
+        {/* <Button variant="primary">Start building</Button> */}
         <span className="ml-5">
           <Button variant="secondary">
             <span className="flex flex-row items-center">
@@ -27,6 +28,8 @@ const Hero = () => {
             </span>
           </Button>
         </span>
+
+        <Button title="React Native" />
       </div>
     </div>
   );

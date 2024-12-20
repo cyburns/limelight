@@ -1,13 +1,19 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import LimeLight from "@/public/limelight-logo.png";
 import Image from "next/image";
 import { navItems } from "@/lib/fake-data";
+import { useTheme } from "@/context/ThemeContext";
+import { Sun, Moon } from "lucide-react";
 
 const NavBar = () => {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <nav>
-      <ul className="flex flex-row justify-between items-stretch border border-light-gray m-5 px-5 py-3 space-x-5 rounded-2xl text-medium-white ">
+      <ul className="flex flex-row justify-between items-center border border-light-gray m-5 px-5 py-3 space-x-5 rounded-2xl text-medium-white">
         {navItems.map((item, index) => (
           <li>
             <Link key={item.id} href={item.href} className="flex items-center">
@@ -20,6 +26,17 @@ const NavBar = () => {
             </Link>
           </li>
         ))}
+
+        <button
+          className="hover:dark:bg-light-gray hover:bg-primary-white rounded-sm py-2 px-1 transition duration-300"
+          onClick={toggleTheme}
+        >
+          {theme === "dark" ? (
+            <Sun size={18} color="white" />
+          ) : (
+            <Moon size={18} color="black" />
+          )}
+        </button>
 
         <li>
           <Link href={"/components"}>
