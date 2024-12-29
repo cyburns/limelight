@@ -29,7 +29,7 @@ const Hero = () => {
           </Button>
         </span>
 
-        <RnButton title="React Native" />
+        <RnButton>React Native</RnButton>
       </div>
     </div>
   );

@@ -1,113 +1,115 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import {
-  TouchableOpacity,
+  Pressable,
   Text,
   StyleSheet,
-  ViewStyle,
-  TextStyle,
+  type View,
+  useColorScheme,
 } from "react-native";
 
-// Define the variants for the button
-const buttonVariants = {
+export interface ButtonProps {
+  children: string;
+  variant?:
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | "link";
+  size?: "default" | "sm" | "lg" | "icon";
+  disabled?: boolean;
+  onPress?: () => void;
+}
+
+const Button = forwardRef<View, ButtonProps>(
+  (
+    {
+      children,
+      variant = "default",
+      size = "default",
+      disabled = false,
+      onPress,
+    },
+    ref
+  ) => {
+    const textColor = useColorScheme() === "dark" ? "#ffffff" : "#1c1c1c";
+
+    return (
+      <Pressable
+        ref={ref}
+        style={[styles.base]}
+        onPress={onPress}
+        disabled={disabled}
+      >
+        <Text style={[styles.textLg, { color: textColor }]}>{children}</Text>
+      </Pressable>
+    );
+  }
+);
+
+Button.displayName = "Button";
+
+const styles = StyleSheet.create({
+  base: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 8,
+    fontSize: 14,
+    fontWeight: "500",
+  },
   default: {
-    backgroundColor: "#007bff",
+    backgroundColor: "#1c1c1c",
     color: "#ffffff",
   },
   destructive: {
-    backgroundColor: "#dc3545",
+    backgroundColor: "#ef4444",
     color: "#ffffff",
   },
   outline: {
-    borderColor: "#ced4da",
     borderWidth: 1,
-    backgroundColor: "transparent",
-    color: "#212529",
+    borderColor: "#e5e7eb",
+    backgroundColor: "#ffffff",
+    color: "#1c1c1c",
   },
   secondary: {
-    backgroundColor: "#6c757d",
-    color: "#ffffff",
+    backgroundColor: "#f3f4f6",
+    color: "#1c1c1c",
   },
   ghost: {
     backgroundColor: "transparent",
-    color: "#212529",
   },
   link: {
-    backgroundColor: "transparent",
-    color: "#007bff",
     textDecorationLine: "underline",
+    color: "#1c1c1c",
   },
-};
-
-// Define sizes for the button
-const buttonSizes = {
-  default: {
+  sizeDefault: {
     height: 40,
     paddingHorizontal: 16,
     paddingVertical: 8,
-    borderRadius: 8,
   },
-  sm: {
+  sizeSm: {
     height: 36,
     paddingHorizontal: 12,
-    borderRadius: 6,
   },
-  lg: {
-    height: 48,
-    paddingHorizontal: 20,
-    borderRadius: 10,
+  sizeLg: {
+    height: 44,
+    paddingHorizontal: 32,
   },
-  icon: {
-    height: 40,
-    width: 40,
-    justifyContent: "center",
-    alignItems: "center",
+  disabled: {
+    opacity: 0.5,
   },
-};
-
-type ButtonProps = {
-  title: string;
-  variant?: keyof typeof buttonVariants;
-  size?: keyof typeof buttonSizes;
-  disabled?: boolean;
-  onPress?: () => void;
-};
-
-const Button: React.FC<ButtonProps> = ({
-  title,
-  variant = "default",
-  size = "default",
-  disabled = false,
-  onPress,
-}) => {
-  const variantStyle = buttonVariants[variant];
-  const sizeStyle = buttonSizes[size];
-
-  const combinedStyles: ViewStyle = {
-    // ...sizeStyle,
-    ...variantStyle,
-    opacity: disabled ? 0.5 : 1,
-  };
-
-  const textStyle: TextStyle = {
-    color: variantStyle.color,
-    textAlign: "center",
-  };
-
-  return (
-    <TouchableOpacity
-      style={[styles.button, combinedStyles]}
-      onPress={disabled ? undefined : onPress}
-      activeOpacity={0.7}
-    >
-      <Text style={textStyle}>{title}</Text>
-    </TouchableOpacity>
-  );
-};
-
-const styles = StyleSheet.create({
-  button: {
-    justifyContent: "center",
-    alignItems: "center",
+  //Text
+  textDefault: {
+    fontSize: 14,
+  },
+  textSm: {
+    fontSize: 12,
+    fontFamily: "Inter",
+  },
+  textLg: {
+    fontSize: 16,
+    fontFamily: "Inter",
   },
 });
 
